@@ -1,13 +1,24 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Alert, Container } from "reactstrap";
 
 const Landingpage = props => {
   console.log(props);
+  const { isAuthenticated } = props.auth;
   return (
     <div>
-      {props.location.state ? <small>{props.location.state.msg}</small> : null}
-      <h3>Landing Page</h3>
+      <Container>
+        {props.location.state && !isAuthenticated ? (
+          <Alert color="danger">{props.location.state.msg}</Alert>
+        ) : null}
+        <h3>Landing Page</h3>
+      </Container>
     </div>
   );
 };
 
-export default Landingpage;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(Landingpage);

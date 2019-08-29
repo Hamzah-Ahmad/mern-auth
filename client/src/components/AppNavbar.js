@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import {
   Collapse,
   Navbar,
+  NavbarBrand,
   NavbarToggler,
   Nav,
   NavItem,
@@ -60,6 +61,10 @@ class AppNavbar extends Component {
       <div>
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
+            <Nav>
+              <Link to="/">Home</Link>
+            </Nav>
+
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
@@ -67,9 +72,7 @@ class AppNavbar extends Component {
               </Nav>
             </Collapse>
             <Nav>
-              <Link to="/" className="ml-3">
-                Home
-              </Link>
+              {/* The profile link should not be visible unless user is logged in, but I have kept it out regardless of auth state, for testing purposes */}
               <Link to="/profile" className="ml-3">
                 Profile
               </Link>

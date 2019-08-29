@@ -1,7 +1,12 @@
 import React from "react";
+import { Container } from "reactstrap";
 
 const Profile = () => {
-  return <h3>Profile Page</h3>;
+  return (
+    <Container>
+      <h3>Profile Page</h3>
+    </Container>
+  );
 };
 
 export default Profile;

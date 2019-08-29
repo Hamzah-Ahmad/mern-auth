@@ -19,7 +19,7 @@ const ProtectedRoute = ({ component: Component, auth, ...rest }) => {
               to={{
                 pathname: "/",
                 state: {
-                  msg: "Please sign in"
+                  msg: "Please sign in to perform this action"
                 }
               }}
             />
