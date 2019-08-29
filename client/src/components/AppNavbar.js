@@ -3,12 +3,11 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   Container
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import RegisterModal from "./auth/RegisterModal";
@@ -67,6 +66,14 @@ class AppNavbar extends Component {
                 {isAuthenticated ? authLinks : guestLinks}
               </Nav>
             </Collapse>
+            <Nav>
+              <Link to="/" className="ml-3">
+                Home
+              </Link>
+              <Link to="/profile" className="ml-3">
+                Profile
+              </Link>
+            </Nav>
           </Container>
         </Navbar>
       </div>
