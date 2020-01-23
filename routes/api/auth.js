@@ -70,12 +70,12 @@ router.post("/forgotPassword", (req, res) => {
         //make sure to adjust your gmail account's security to allow it to send emails
         service: "gmail",
         auth: {
-          user: "sillypotato996@gmail.com", //put your email here
-          pass: "Haz96./." //put your email's password here.
+          user: "", //put your email here
+          pass: "" //put your email's password here.
         }
       });
       const mailOptions = {
-        from: "sillypotato996@gmail.com", //put your email here
+        from: "", //put your email here
         to: `${user.email}`,
         subject: "Link To Reset Password",
         //IMP: replace localhost:3000 in the link below with ${req.headers.host} in production to get the deployment site's header
