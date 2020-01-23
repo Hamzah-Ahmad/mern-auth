@@ -4,7 +4,7 @@ const config = require("config");
 const path = require("path");
 var cors = require("cors");
 
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; //do this to bypass self signed certificate error when sending emails, while using localhost
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; //do this to bypass self signed certificate error when sending emails
 const app = express();
 app.use(cors());
 
@@ -21,14 +21,6 @@ mongoose
 
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
-
-if (process.env.NODE_ENV === "production") {
-  //set static folder
-  app.use(express.static("client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index"));
-  });
-}
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log("Server running on port 3000"));

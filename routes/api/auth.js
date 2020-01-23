@@ -78,10 +78,11 @@ router.post("/forgotPassword", (req, res) => {
         from: "sillypotato996@gmail.com", //put your email here
         to: `${user.email}`,
         subject: "Link To Reset Password",
+        //IMP: replace localhost:3000 in the link below with ${req.headers.host} in production to get the deployment site's header
         text:
           "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
           "Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n" +
-          `http://${req.headers.host}/reset/${token}\n\n` +
+          `http://localhost:3000/reset/${token}\n\n` +
           "If you did not request this, please ignore this email and your password will remain unchanged.\n"
       };
 
