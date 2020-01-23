@@ -17,7 +17,7 @@ const ProtectedRoute = ({ component: Component, auth, ...rest }) => {
           return (
             <Redirect
               to={{
-                pathname: "/",
+                pathname: "/login",
                 state: {
                   msg: "Please sign in to perform this action"
                 }

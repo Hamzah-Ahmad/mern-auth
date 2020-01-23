@@ -1,8 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require("config");
+var cors = require("cors");
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; //did this temporarily to be able to send emails.
 const app = express();
+app.use(cors());
+
 const db = config.get("mongoURI");
 app.use(express.json());
 
