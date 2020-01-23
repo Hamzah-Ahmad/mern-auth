@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { Input, Button, Container, Alert } from "reactstrap";
 class ForgotPassword extends Component {
   constructor() {
     super();
@@ -8,7 +10,9 @@ class ForgotPassword extends Component {
       email: "",
       showError: false,
       messageFromServer: "",
-      showNullError: false
+      showNullError: false,
+      loading: false,
+      disableInputs: false
     };
   }
 
@@ -29,6 +33,7 @@ class ForgotPassword extends Component {
       });
     } else {
       try {
+        this.setState({ loading: true });
         const response = await axios.post("/api/auth/forgotPassword", {
           email
         });
@@ -37,7 +42,9 @@ class ForgotPassword extends Component {
           this.setState({
             showError: false,
             messageFromServer: "recovery email sent",
-            showNullError: false
+            showNullError: false,
+            loading: false,
+            disableInputs: true
           });
         }
       } catch (error) {
@@ -46,7 +53,8 @@ class ForgotPassword extends Component {
           this.setState({
             showError: true,
             messageFromServer: "",
-            showNullError: false
+            showNullError: false,
+            loading: false
           });
         }
       }
@@ -54,43 +62,71 @@ class ForgotPassword extends Component {
   };
 
   render() {
-    const { email, messageFromServer, showNullError, showError } = this.state;
+    const {
+      email,
+      messageFromServer,
+      showNullError,
+      showError,
+      loading,
+      disableInputs
+    } = this.state;
 
     return (
       <div>
-        <form className="profile-form" onSubmit={this.sendEmail}>
-          <input
-            id="email"
-            value={email}
-            onChange={this.handleChange("email")}
-            placeholder="Email Address"
-          />
-          <button>Send Reset Email</button>
-        </form>
-        {showNullError && (
-          <div>
-            <p>The email address cannot be null.</p>
-          </div>
-        )}
-        {showError && (
-          <div>
-            <p>
-              That email address isn't recognized. Please try again or register
-              for a new account.
-            </p>
-            {/* <LinkButtons
+        <Container>
+          {showNullError && (
+            <div>
+              <Alert color="danger">The email address cannot be null.</Alert>
+            </div>
+          )}
+          {showError && (
+            <div>
+              <Alert color="danger">
+                That email address isn't recognized. Please try again or
+                register for a new account.
+              </Alert>
+              {/* <LinkButtons
               buttonText="Register"
               buttonStyle={registerButton}
               link="/register"
             /> */}
-          </div>
-        )}
-        {messageFromServer === "recovery email sent" && (
-          <div>
-            <h3>Password Reset Email Successfully Sent!</h3>
-          </div>
-        )}
-        {/* <LinkButtons buttonText="Go Home" buttonStyle={homeButton} link="/" /> */}
+            </div>
+          )}
+          {/* {loading && <div>Loading...</div>} */}
+          {messageFromServer === "recovery email sent" && (
+            <div>
+              <Alert>Password Reset Email Successfully Sent!</Alert>
+            </div>
+          )}
+
+          <form className="profile-form" onSubmit={this.sendEmail}>
+            <Input
+              id="email"
+              value={email}
+              onChange={this.handleChange("email")}
+              placeholder="Email Address"
+              disabled={disableInputs}
+            />
+            <Button
+              color="dark"
+              block
+              style={{ marginTop: "20px", marginBottom: "30px" }}
+              disabled={loading}
+              disabled={disableInputs}
+            >
+              {loading ? (
+                <span>Loading...</span>
+              ) : (
+                <span>Send Reset Email</span>
+              )}
+            </Button>
+          </form>
+
+          <Link to="/login">
+            <span>Go to Login page</span>
+          </Link>
+          {/* <LinkButtons buttonText="Go Home" buttonStyle={homeButton} link="/" /> */}
+        </Container>
       </div>
     );
   }

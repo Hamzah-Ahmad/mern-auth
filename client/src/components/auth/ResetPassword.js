@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Input, Container, Button, Alert, Spinner } from "reactstrap";
 import axios from "axios";
 
 const loading = {
@@ -96,6 +97,7 @@ export default class ResetPassword extends Component {
           error: false
         });
       } else {
+        console.log(response.data.message);
         this.setState({
           updated: false,
           error: true
@@ -111,46 +113,72 @@ export default class ResetPassword extends Component {
 
     if (error) {
       return (
-        <div>
-          <div style={loading}>
-            <h4>Problem resetting password. Send another reset link.</h4>
+        <Container>
+          <div>
+            <Alert color="danger">
+              Problem resetting password. Send another reset link.
+            </Alert>
             <p>{error}</p>
-            <LinkButtons buttonText="Go Home" link="/" />
-            <LinkButtons buttonText="Forgot Password?" link="/forgotPassword" />
+            {/* <LinkButtons buttonText="Go Home" link="/" />
+            <LinkButtons buttonText="Forgot Password?" link="/forgotPassword" /> */}
+
+            <Link to="/forgotPassword">
+              <div>Forgot Password</div>
+            </Link>
+
+            <Link to="/">
+              <div style={{ marginTop: "10px" }}>Go home</div>
+            </Link>
           </div>
-        </div>
+        </Container>
       );
     }
     if (isLoading) {
+      const centered = {
+        position: "fixed" /* or absolute */,
+        top: "50%",
+        left: "50%"
+      };
       return (
-        <div>
-          <div style={loading}>Loading User Data...</div>
-        </div>
+        <Container>
+          <Spinner animation="border" style={centered} />
+        </Container>
       );
     }
     return (
-      <div>
+      <Container>
+        {updated && (
+          <div>
+            <Alert>
+              Your password has been successfully reset, please try logging in
+              again.
+            </Alert>
+            {/* <Link to="/login">
+              <Button>Login</Button>
+            </Link> */}
+          </div>
+        )}
         <form className="password-form" onSubmit={this.updatePassword}>
-          <input
+          <Input
             id="password"
             onChange={this.handleChange("password")}
             value={password}
             type="password"
+            disabled={updated}
           />
-          <SubmitButtons buttonText="Update Password" />
+          <Button
+            type="submit"
+            block
+            disabled={updated}
+            color="dark"
+            style={{ marginTop: "20px" }}
+          >
+            Update Password
+          </Button>
         </form>
 
-        {updated && (
-          <div>
-            <p>
-              Your password has been successfully reset, please try logging in
-              again.
-            </p>
-            <LinkButtons buttonText="Login" link="/login" />
-          </div>
-        )}
-        <LinkButtons buttonText="Go Home" link="/" />
-      </div>
+        <Link to="/login">Go to Login page</Link>
+      </Container>
     );
   }
 }

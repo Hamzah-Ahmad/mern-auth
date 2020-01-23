@@ -70,12 +70,12 @@ router.post("/forgotPassword", (req, res) => {
         //make sure to adjust your gmail account's security to allow it to send emails
         service: "gmail",
         auth: {
-          user: "@gmail.com", //put your email here
-          pass: "" //put your email's password here.
+          user: "sillypotato996@gmail.com", //put your email here
+          pass: "Haz96./." //put your email's password here.
         }
       });
       const mailOptions = {
-        from: "@gmail.com", //put your email here
+        from: "sillypotato996@gmail.com", //put your email here
         to: `${user.email}`,
         subject: "Link To Reset Password",
         text:
@@ -106,9 +106,8 @@ router.get("/reset", (req, res, next) => {
   }).then(user => {
     if (user == null) {
       console.log("password reset link is invalid or has expired");
-      res.json("password reset link is invalid or has expired");
+      res.status(403).send("password reset link is invalid or has expired");
     } else {
-      console.log(user);
       res.status(200).send({
         email: user.email,
         message: "password reset link a-ok"
