@@ -67,14 +67,15 @@ router.post("/forgotPassword", (req, res) => {
       user.save();
 
       const transporter = nodemailer.createTransport({
+        //make sure to adjust your gmail account's security to allow it to send emails
         service: "gmail",
         auth: {
-          user: "sillypotato996@gmail.com",
-          pass: "Haz96./."
+          user: "@gmail.com", //put your email here
+          pass: "" //put your email's password here.
         }
       });
       const mailOptions = {
-        from: "sillypotato996@gmail.com",
+        from: "@gmail.com", //put your email here
         to: `${user.email}`,
         subject: "Link To Reset Password",
         text:
