@@ -1,4 +1,4 @@
 {
-  "mongoURI": "",
-  "jwtSecret": ""
+  "mongoURI": "mongodb+srv://Hamzah:hamzahpassword@cluster0-20vtk.mongodb.net/mern-auth-with-reset?retryWrites=true&w=majority",
+  "jwtSecret": "auth_secret"
 }
