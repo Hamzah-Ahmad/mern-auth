@@ -56,6 +56,8 @@ class ForgotPassword extends Component {
             showNullError: false,
             loading: false
           });
+        } else {
+          console.log(error);
         }
       }
     }
