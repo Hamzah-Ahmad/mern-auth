@@ -4,7 +4,7 @@ const config = require("config");
 const path = require("path");
 var cors = require("cors");
 
-//process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; //do this to bypass self signed certificate error when sending emails
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; //do this to bypass self signed certificate error when sending emails
 const app = express();
 app.use(cors());
 

@@ -58,6 +58,8 @@ class ForgotPassword extends Component {
           });
         } else {
           console.log(error);
+          console.log("error");
+          this.props.history.push("/");
         }
       }
     }
