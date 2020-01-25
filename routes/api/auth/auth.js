@@ -5,8 +5,8 @@ const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const User = require("../../models/User");
-const auth = require("../../middleware/auth");
+const User = require("../../../models/User");
+const auth = require("../../../middleware/auth");
 
 //@route POST api/auth
 //@desc authenticating users
