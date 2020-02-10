@@ -16,7 +16,7 @@ router.post("/", (req, res) => {
 
   //Validation
   if (!email || !password) {
-    res.status(400).json({ msg: "Please enter all fields" });
+    return res.status(400).json({ msg: "Please enter all fields" });
   }
 
   //Check for existing user
@@ -25,7 +25,7 @@ router.post("/", (req, res) => {
 
     //Validate password
     bcrypt.compare(password, user.password).then(isMatch => {
-      if (!isMatch) return res.status(400).json({ msg: "invalid credentials" });
+      if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
       jwt.sign(
         { id: user.id },
@@ -74,6 +74,11 @@ router.post("/forgotPassword", (req, res) => {
           pass: "Haz96./." //put your email's password here.
         }
       });
+
+      //Use this as the link sent with the reset email in development
+      //http://localhost:3000/reset/${token}\n\n
+      //Use this as the link sent with the reset email in production
+      //`https://${req.headers.host}/reset/${token}\n\n
       const mailOptions = {
         from: "sillypotato996@gmail.com", //put your email here
         to: `${user.email}`,
@@ -82,11 +87,10 @@ router.post("/forgotPassword", (req, res) => {
         text:
           "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
           "Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n" +
-          `https://${req.headers.host}/reset/${token}\n\n` +
+          `http://localhost:3000/reset/${token}\n\n` +
           "If you did not request this, please ignore this email and your password will remain unchanged.\n"
       };
 
-      //console.log("sending mail");
       transporter.sendMail(mailOptions, (err, response) => {
         if (err) {
           console.error("there was an error: ", err);

@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+/* eslint-disable */
+
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -14,54 +16,59 @@ import PropTypes from "prop-types";
 import { register } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
 
-class Register extends Component {
-  state = {
-    modal: false,
-    name: "",
-    email: "",
-    password: "",
-    msg: null
-  };
+const Register = props => {
+  // state = {
+  //   name: "",
+  //   email: "",
+  //   password: "",
+  //   msg: null
+  // };
 
-  static propTypes = {
-    isAuthenticated: PropTypes.bool,
-    error: PropTypes.object.isRequired,
-    register: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired
-  };
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("");
 
-  componentDidUpdate(prevProps) {
-    const { error, isAuthenticated } = this.props;
-    if (error !== prevProps.error) {
-      // Check for register error
+  const { error, isAuthenticated } = props;
+
+  // componentDidUpdate(prevProps) {
+  //   const { error, isAuthenticated } = this.props;
+  //   if (error !== prevProps.error) {
+  //     // Check for register error
+  //     if (error.id === "REGISTER_FAIL") {
+  //       this.setState({ msg: error.msg.msg });
+  //     } else {
+  //       this.setState({ msg: null });
+  //     }
+  //   }
+
+  //   if (isAuthenticated) {
+  //     this.props.history.push("/");
+  //   }
+  // }
+
+  useEffect(() => {
+    if (error) {
       if (error.id === "REGISTER_FAIL") {
-        this.setState({ msg: error.msg.msg });
+        setMsg(error.msg.msg);
       } else {
-        this.setState({ msg: null });
+        setMsg(null);
       }
     }
 
     if (isAuthenticated) {
-      this.props.history.push("/");
+      props.history.push("/");
     }
-  }
+  }, [error, isAuthenticated]);
 
-  toggle = () => {
-    // Clear errors
-    this.props.clearErrors();
-    this.setState({
-      modal: !this.state.modal
-    });
-  };
+  // const onChange = e => {
+  //   this.setState({ [e.target.name]: e.target.value });
+  // };
 
-  onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onSubmit = e => {
+  const onSubmit = e => {
     e.preventDefault();
 
-    const { name, email, password } = this.state;
+    // const { name, email, password } = this.state;
 
     // Create user object
     const newUser = {
@@ -71,62 +78,53 @@ class Register extends Component {
     };
 
     // Attempt to register
-    this.props.register(newUser);
+    props.register(newUser);
   };
+  return (
+    <div>
+      <Container>
+        {msg ? <Alert color="danger">{msg}</Alert> : null}
+        <Form onSubmit={onSubmit}>
+          <FormGroup>
+            <Label for="name">Name</Label>
+            <Input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Name"
+              className="mb-3"
+              onChange={e => setName(e.target.value)}
+            />
 
-  render() {
-    return (
-      <div>
-        {/* <NavLink onClick={this.toggle} href="#">
-          Register
-        </NavLink> */}
+            <Label for="email">Email</Label>
+            <Input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              className="mb-3"
+              onChange={e => setEmail(e.target.value)}
+            />
 
-        <Container>
-          {this.state.msg ? (
-            <Alert color="danger">{this.state.msg}</Alert>
-          ) : null}
-          <Form onSubmit={this.onSubmit}>
-            <FormGroup>
-              <Label for="name">Name</Label>
-              <Input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Name"
-                className="mb-3"
-                onChange={this.onChange}
-              />
-
-              <Label for="email">Email</Label>
-              <Input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email"
-                className="mb-3"
-                onChange={this.onChange}
-              />
-
-              <Label for="password">Password</Label>
-              <Input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-                className="mb-3"
-                onChange={this.onChange}
-              />
-              <Button color="dark" style={{ marginTop: "2rem" }} block>
-                Register
-              </Button>
-            </FormGroup>
-          </Form>
-          <Link to="/login">Already a member?</Link>
-        </Container>
-      </div>
-    );
-  }
-}
+            <Label for="password">Password</Label>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              className="mb-3"
+              onChange={e => setPassword(e.target.value)}
+            />
+            <Button color="dark" style={{ marginTop: "2rem" }} block>
+              Register
+            </Button>
+          </FormGroup>
+        </Form>
+        <Link to="/login">Already a member?</Link>
+      </Container>
+    </div>
+  );
+};
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
