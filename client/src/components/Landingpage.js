@@ -1,18 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Alert, Container } from "reactstrap";
+import Logout from "./auth/Logout";
 
 const Landingpage = props => {
   console.log(props);
-  const { isAuthenticated } = props.auth;
+  const { isAuthenticated, user } = props.auth;
   return (
     <div>
-      <Container>
-        {props.location.state && !isAuthenticated ? (
-          <Alert color="danger">{props.location.state.msg}</Alert>
-        ) : null}
-        <h3>Landing Page</h3>
-      </Container>
+      {props.location.state && !isAuthenticated ? (
+        <p color="danger">{props.location.state.msg}</p>
+      ) : null}
+      <h3>Landing Page</h3>
+      <h3>{user ? `${user.name}` : ""}</h3>
+      <div></div>
+      <Logout />
     </div>
   );
 };

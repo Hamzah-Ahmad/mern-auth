@@ -1,30 +1,12 @@
 /* eslint-disable */
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { Input, Container, Button, Alert, Spinner } from "reactstrap";
 import axios from "axios";
 
-const loading = {
-  margin: "1em",
-  fontSize: "24px"
-};
-
-const LinkButtons = ({ buttonText, link }) => (
-  <Fragment>
-    <Link to={link}>
-      <button>{buttonText}</button>
-    </Link>
-  </Fragment>
-);
-
-const SubmitButtons = ({ buttonText }) => (
-  <Fragment>
-    <button type="submit" variant="contained">
-      {buttonText}
-    </button>
-  </Fragment>
-);
+// const loading = {
+//   margin: "1em",
+//   fontSize: "24px"
+// };
 
 export default class ResetPassword extends Component {
   constructor() {
@@ -114,24 +96,22 @@ export default class ResetPassword extends Component {
 
     if (error) {
       return (
-        <Container>
-          <div>
-            <Alert color="danger">
-              Problem resetting password. Send another reset link.
-            </Alert>
-            <p>{error}</p>
-            {/* <LinkButtons buttonText="Go Home" link="/" />
+        <div>
+          <small color="danger">
+            Problem resetting password. Send another reset link.
+          </small>
+          <p>{error}</p>
+          {/* <LinkButtons buttonText="Go Home" link="/" />
             <LinkButtons buttonText="Forgot Password?" link="/forgotPassword" /> */}
 
-            <Link to="/forgotPassword">
-              <div>Forgot Password</div>
-            </Link>
+          <Link to="/forgotPassword">
+            <div>Forgot Password</div>
+          </Link>
 
-            <Link to="/">
-              <div style={{ marginTop: "10px" }}>Go home</div>
-            </Link>
-          </div>
-        </Container>
+          <Link to="/">
+            <div style={{ marginTop: "10px" }}>Go home</div>
+          </Link>
+        </div>
       );
     }
     if (isLoading) {
@@ -141,33 +121,32 @@ export default class ResetPassword extends Component {
         left: "50%"
       };
       return (
-        <Container>
-          <Spinner animation="border" style={centered} />
-        </Container>
+        // <Spinner animation="border" style={centered} />
+        <p style={centered}>Loading...</p>
       );
     }
     return (
-      <Container>
+      <div>
         {updated && (
           <div>
-            <Alert>
+            <small>
               Your password has been successfully reset, please try logging in
               again.
-            </Alert>
+            </small>
             {/* <Link to="/login">
               <Button>Login</Button>
             </Link> */}
           </div>
         )}
         <form className="password-form" onSubmit={this.updatePassword}>
-          <Input
+          <input
             id="password"
             onChange={this.handleChange("password")}
             value={password}
             type="password"
             disabled={updated}
           />
-          <Button
+          <button
             type="submit"
             block
             disabled={updated}
@@ -175,20 +154,11 @@ export default class ResetPassword extends Component {
             style={{ marginTop: "20px" }}
           >
             Update Password
-          </Button>
+          </button>
         </form>
 
         <Link to="/login">Go to Login page</Link>
-      </Container>
+      </div>
     );
   }
 }
-
-ResetPassword.propTypes = {
-  // eslint-disable-next-line react/require-default-props
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      token: PropTypes.string.isRequired
-    })
-  })
-};

@@ -1,4 +1,0 @@
-{
-  "mongoURI": "paste mongo uri here",
-  "jwtSecret": "auth_secret"
-}

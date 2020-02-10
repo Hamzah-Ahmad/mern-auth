@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Input, Button, Container, Alert } from "reactstrap";
 class ForgotPassword extends Component {
   constructor() {
     super();
@@ -77,60 +76,54 @@ class ForgotPassword extends Component {
 
     return (
       <div>
-        <Container>
-          {showNullError && (
-            <div>
-              <Alert color="danger">The email address cannot be null.</Alert>
-            </div>
-          )}
-          {showError && (
-            <div>
-              <Alert color="danger">
-                That email address isn't recognized. Please try again or
-                register for a new account.
-              </Alert>
-              {/* <LinkButtons
+        {showNullError && (
+          <div>
+            <small color="danger">The email address cannot be null.</small>
+          </div>
+        )}
+        {showError && (
+          <div>
+            <small color="danger">
+              That email address isn't recognized. Pease try again or register
+              for a new account.
+            </small>
+            {/* <LinkButtons
               buttonText="Register"
               buttonStyle={registerButton}
               link="/register"
             /> */}
-            </div>
-          )}
-          {/* {loading && <div>Loading...</div>} */}
-          {messageFromServer === "recovery email sent" && (
-            <div>
-              <Alert>Password Reset Email Successfully Sent!</Alert>
-            </div>
-          )}
+          </div>
+        )}
+        {/* {loading && <div>Loading...</div>} */}
+        {messageFromServer === "recovery email sent" && (
+          <div>
+            <alert>Password Reset Email Successfully Sent!</alert>
+          </div>
+        )}
 
-          <form className="profile-form" onSubmit={this.sendEmail}>
-            <Input
-              id="email"
-              value={email}
-              onChange={this.handleChange("email")}
-              placeholder="Email Address"
-              disabled={disableInputs}
-            />
-            <Button
-              color="dark"
-              block
-              style={{ marginTop: "20px", marginBottom: "30px" }}
-              disabled={loading}
-              disabled={disableInputs}
-            >
-              {loading ? (
-                <span>Loading...</span>
-              ) : (
-                <span>Send Reset Email</span>
-              )}
-            </Button>
-          </form>
+        <form className="profile-form" onSubmit={this.sendEmail}>
+          <input
+            id="email"
+            value={email}
+            onChange={this.handleChange("email")}
+            placeholder="Email Address"
+            disabled={disableInputs}
+          />
+          <button
+            color="dark"
+            block
+            style={{ marginTop: "20px", marginBottom: "30px" }}
+            disabled={loading}
+            disabled={disableInputs}
+          >
+            {loading ? <span>Loading...</span> : <span>Send Reset Email</span>}
+          </button>
+        </form>
 
-          <Link to="/login">
-            <span>Go to Login page</span>
-          </Link>
-          {/* <LinkButtons buttonText="Go Home" buttonStyle={homeButton} link="/" /> */}
-        </Container>
+        <Link to="/login">
+          <span>Go to Login page</span>
+        </Link>
+        {/* <LinkButtons buttonText="Go Home" buttonStyle={homeButton} link="/" /> */}
       </div>
     );
   }

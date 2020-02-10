@@ -18,7 +18,7 @@ function App() {
   });
   return (
     <div>
-      <AppNavbar />
+      {/* <AppNavbar /> */}
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

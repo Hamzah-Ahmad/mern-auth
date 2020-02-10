@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const config = require("config");
 const path = require("path");
 var cors = require("cors");
 
@@ -8,11 +8,10 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; //do this to bypass self signed 
 const app = express();
 app.use(cors());
 
-const db = config.get("mongoURI");
 app.use(express.json());
 
 mongoose
-  .connect(db, {
+  .connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useCreateIndex: true
   })

@@ -45,7 +45,7 @@ const Login = props => {
   useEffect(() => {
     if (error) {
       if (error.id === "LOGIN_FAIL") {
-        console.log(error);
+        console.log("Error is " + error);
         setMsg(error.msg.msg);
       } else {
         setMsg(null);
@@ -77,39 +77,35 @@ const Login = props => {
 
   return (
     <div>
-      <Container>
-        {msg ? <Alert color="danger">{msg}</Alert> : null}
-        <Form onSubmit={onSubmit}>
-          <FormGroup>
-            <Label for="email">Email</Label>
-            <Input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              className="mb-3"
-              onChange={e => setEmail(e.target.value)}
-            />
+      {msg ? <p color="danger">{msg}</p> : null}
+      <form onSubmit={onSubmit}>
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          className="mb-3"
+          onChange={e => setEmail(e.target.value)}
+        />
 
-            <Label for="password">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              className="mb-3"
-              onChange={e => setPassword(e.target.value)}
-            />
-            <Button color="dark" style={{ marginTop: "2rem" }} block>
-              Login
-            </Button>
-          </FormGroup>
-        </Form>
-        <Link to="/register">Not a member?</Link>
-        <div style={{ marginTop: "20px" }}>
-          <Link to="/forgotPassword">Forgot Password </Link>
-        </div>
-      </Container>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          className="mb-3"
+          onChange={e => setPassword(e.target.value)}
+        />
+        <button color="dark" style={{ marginTop: "2rem" }} block>
+          Login
+        </button>
+      </form>
+      <Link to="/register">Not a member?</Link>
+      <div style={{ marginTop: "20px" }}>
+        <Link to="/forgotPassword">Forgot Password </Link>
+      </div>
     </div>
   );
 };

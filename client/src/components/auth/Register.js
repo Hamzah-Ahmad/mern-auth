@@ -12,7 +12,6 @@ import {
   Alert
 } from "reactstrap";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { register } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
 
@@ -82,46 +81,44 @@ const Register = props => {
   };
   return (
     <div>
-      <Container>
-        {msg ? <Alert color="danger">{msg}</Alert> : null}
-        <Form onSubmit={onSubmit}>
-          <FormGroup>
-            <Label for="name">Name</Label>
-            <Input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Name"
-              className="mb-3"
-              onChange={e => setName(e.target.value)}
-            />
+      <div>
+        {msg ? <p color="danger">{msg}</p> : null}
+        <form onSubmit={onSubmit}>
+          <label for="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            className="mb-3"
+            onChange={e => setName(e.target.value)}
+          />
 
-            <Label for="email">Email</Label>
-            <Input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              className="mb-3"
-              onChange={e => setEmail(e.target.value)}
-            />
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            className="mb-3"
+            onChange={e => setEmail(e.target.value)}
+          />
 
-            <Label for="password">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              className="mb-3"
-              onChange={e => setPassword(e.target.value)}
-            />
-            <Button color="dark" style={{ marginTop: "2rem" }} block>
-              Register
-            </Button>
-          </FormGroup>
-        </Form>
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            className="mb-3"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <button color="dark" style={{ marginTop: "2rem" }} block>
+            Register
+          </button>
+        </form>
         <Link to="/login">Already a member?</Link>
-      </Container>
+      </div>
     </div>
   );
 };
