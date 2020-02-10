@@ -95,7 +95,7 @@ router.post("/forgotPassword", (req, res) => {
           console.error("there was an error: ", err);
         } else {
           //console.log("here is the res: ", response);
-          res.status(200).json("recovery email sent");
+          res.status(200).json("Recovery email sent");
         }
       });
     }
