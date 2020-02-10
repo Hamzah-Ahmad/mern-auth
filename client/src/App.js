@@ -6,7 +6,6 @@ import "./App.css";
 
 import store from "./store";
 import { loadUser } from "./actions/authActions";
-import AppNavbar from "./components/AppNavbar";
 import Landingpage from "./components/Landingpage";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
@@ -18,7 +17,6 @@ function App() {
   });
   return (
     <div>
-      {/* <AppNavbar /> */}
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
