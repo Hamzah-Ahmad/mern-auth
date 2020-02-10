@@ -27,43 +27,48 @@ const ResetPassword = props => {
   const [isLoading, setIsLoading] = useState("");
   const [error, setError] = useState("");
 
-  useEffect(async () => {
-    const {
-      match: {
-        params: { token }
-      }
-    } = props;
-    try {
-      const response = await axios.get("/api/auth/reset", {
-        params: {
-          resetPasswordToken: token
+  useEffect(() => {
+    //We created a function here because just running an async function directly broke the applciation and produced the following warning:
+    //It looks like you wrote useEffect(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately:
+    async function updateFunc() {
+      const {
+        match: {
+          params: { token }
         }
-      });
-      console.log(response);
-      if (response.data.message === "password reset link a-ok") {
+      } = props;
+      try {
+        const response = await axios.get("/api/auth/reset", {
+          params: {
+            resetPasswordToken: token
+          }
+        });
         console.log(response);
+        if (response.data.message === "password reset link a-ok") {
+          console.log(response);
+          // this.setState({
+          //   email: response.data.email,
+          //   updated: false,
+          //   isLoading: false,
+          //   error: false
+          // });
+          setEmail(response.data.email);
+          setUpdated(false);
+          setIsLoading(false);
+          setError(false);
+        }
+      } catch (error) {
+        console.log(error.response);
         // this.setState({
-        //   email: response.data.email,
         //   updated: false,
         //   isLoading: false,
-        //   error: false
+        //   error: true
         // });
-        setEmail(response.data.email);
         setUpdated(false);
         setIsLoading(false);
-        setError(false);
+        setError(true);
       }
-    } catch (error) {
-      console.log(error.response);
-      // this.setState({
-      //   updated: false,
-      //   isLoading: false,
-      //   error: true
-      // });
-      setUpdated(false);
-      setIsLoading(false);
-      setError(true);
     }
+    updateFunc();
   }, []);
 
   // handleChange = name => event => {

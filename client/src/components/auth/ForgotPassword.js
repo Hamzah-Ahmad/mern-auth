@@ -39,7 +39,7 @@ const ForgotPassword = () => {
       // });
       setShowError(false);
       setmessageFromServer("");
-      setshowNullError(true);
+      setShowNullError(true);
     } else {
       try {
         // this.setState({ loading: true });
