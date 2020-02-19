@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Alert,
-  Container
-} from "reactstrap";
 import { connect } from "react-redux";
 import { login } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
